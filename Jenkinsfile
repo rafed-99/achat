@@ -1,0 +1,51 @@
+import java.text.SimpleDateFormat
+pipeline{
+environment {
+        registry = "rafedchraiti/testing"
+        registryCredential = 'dckr_pat_wadd9m36GOJGduKhbJig6Pf458Q'
+        dockerImage = ''
+    }
+    agent any
+    stages{
+        stage("Checkout git"){
+                                steps{
+                                  git branch: 'master',
+                                   url: 'https://github.com/rafed-99/achat';
+                               }
+                           }
+        stage('Date'){
+                                 steps {
+                                    script{
+                                            def date = new Date()
+                                            sdf = new SimpleDateFormat("MM/dd/yyyy")
+                                            println(sdf.format(date))
+                                           }
+                                        }
+                      }
+        stage("MVN Clean"){
+                                steps{
+                                    sh 'mvn clean'
+                                }
+        }
+        stage('MVN compile'){
+                                steps{
+                                    sh 'mvn compile'
+                                }
+        }
+        stage('MVN package'){
+                                steps{
+                                    sh 'mvn package'
+                                }
+        }
+        stage("Test JUnit - Mockito"){
+                                steps {
+                                    sh 'mvn test'
+                                }
+        }
+        stage('SonarQube CodeQuality'){
+                                steps{
+                                    sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=41120725'
+                                }
+        }
+    }
+}
