@@ -2,6 +2,7 @@ package tn.esprit.rh.achat.services;
 
 import tn.esprit.rh.achat.entities.Produit;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IProduitService {
@@ -17,5 +18,7 @@ public interface IProduitService {
 	Produit retrieveProduit(Long id);
 
 	void assignProduitToStock(Long idProduit, Long idStock);
+
+	float getRevenuBrutProduit(Long idProduit, Date startDate, Date endDate);
 
 }
