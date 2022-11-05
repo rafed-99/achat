@@ -1,10 +1,13 @@
 package tn.esprit.rh.achat.controllers;
 
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.rh.achat.entities.CategorieProduit;
 import tn.esprit.rh.achat.services.ICategorieProduitService;
+import tn.esprit.rh.achat.dto.CategorieProduitDTO;
+
 
 import java.util.List;
 
@@ -15,7 +18,9 @@ public class CategorieProduitController {
 
 	@Autowired
 	ICategorieProduitService categorieProduitService;
-	
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@GetMapping("/retrieve-all-categorieProduit")
 	@ResponseBody
@@ -33,8 +38,9 @@ public class CategorieProduitController {
 
 	@PostMapping("/add-categorieProduit")
 	@ResponseBody
-	public CategorieProduit addCategorieProduit(@RequestBody CategorieProduit cp) {
-		return categorieProduitService.addCategorieProduit(cp);
+	public CategorieProduit addCategorieProduit(@RequestBody CategorieProduitDTO cp) {
+		CategorieProduit persistentC = modelMapper.map(cp,  CategorieProduit.class);
+		return categorieProduitService.addCategorieProduit(persistentC );
 	}
 
 
@@ -47,8 +53,9 @@ public class CategorieProduitController {
 
 	@PutMapping("/modify-categorieProduit")
 	@ResponseBody
-	public CategorieProduit modifyCategorieProduit(@RequestBody CategorieProduit categorieProduit) {
-		return categorieProduitService.updateCategorieProduit(categorieProduit);
+	public CategorieProduit modifyCategorieProduit(@RequestBody CategorieProduitDTO categorieProduit) {
+		CategorieProduit persistentC = modelMapper.map(categorieProduit,  CategorieProduit.class);
+		return categorieProduitService.updateCategorieProduit(persistentC);
 	}
 
 	
