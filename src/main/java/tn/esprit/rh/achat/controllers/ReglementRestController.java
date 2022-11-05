@@ -1,9 +1,11 @@
 package tn.esprit.rh.achat.controllers;
 
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.rh.achat.dto.ReglementDTO;
 import tn.esprit.rh.achat.entities.Reglement;
 import tn.esprit.rh.achat.services.IReglementService;
 
@@ -19,13 +21,17 @@ public class ReglementRestController {
     @Autowired
     IReglementService reglementService;
 
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @PostMapping("/add-reglement")
     @ResponseBody
-    public Reglement addReglement(@RequestBody Reglement r) {
-        return reglementService.addReglement(r);
+    public Reglement addReglement(@RequestBody ReglementDTO r) {
+        Reglement persistentR = modelMapper.map(r,  Reglement.class);
+        return reglementService.addReglement(persistentR);
     }
+
     @GetMapping("/retrieve-all-reglements")
     @ResponseBody
     public List<Reglement> getReglement() {

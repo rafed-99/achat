@@ -2,9 +2,11 @@ package tn.esprit.rh.achat.controllers;
 
 
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.rh.achat.dto.StockDTO;
 import tn.esprit.rh.achat.entities.Stock;
 import tn.esprit.rh.achat.services.IStockService;
 
@@ -19,6 +21,8 @@ public class StockRestController {
 	@Autowired
 	IStockService stockService;
 
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@GetMapping("/retrieve-all-stocks")
 	@ResponseBody
@@ -36,8 +40,9 @@ public class StockRestController {
 
 	@PostMapping("/add-stock")
 	@ResponseBody
-	public Stock addStock(@RequestBody Stock s) {
-		return stockService.addStock(s);
+	public Stock addStock(@RequestBody StockDTO s) {
+		Stock persistentStock = modelMapper.map(s,  Stock.class);
+		return  stockService.addStock( persistentStock);
 	}
 
 
@@ -50,8 +55,9 @@ public class StockRestController {
 
 	@PutMapping("/modify-stock")
 	@ResponseBody
-	public Stock modifyStock(@RequestBody Stock stock) {
-		return stockService.updateStock(stock);
+	public Stock modifyStock(@RequestBody StockDTO stock) {
+		Stock persistentStock = modelMapper.map(stock,  Stock.class);
+		return  stockService.updateStock( persistentStock);
 	}
 
 	/*

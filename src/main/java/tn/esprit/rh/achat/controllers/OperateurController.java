@@ -1,8 +1,10 @@
 package tn.esprit.rh.achat.controllers;
 
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.rh.achat.dto.OperateurDTO;
 import tn.esprit.rh.achat.entities.Operateur;
 import tn.esprit.rh.achat.services.IOperateurService;
 
@@ -16,6 +18,9 @@ public class OperateurController {
 
 	@Autowired
 	IOperateurService operateurService;
+
+	@Autowired
+	private ModelMapper modelMapper;
 	
 
 	@GetMapping("/retrieve-all-operateurs")
@@ -34,8 +39,9 @@ public class OperateurController {
 
 	@PostMapping("/add-operateur")
 	@ResponseBody
-	public Operateur addOperateur(@RequestBody Operateur op) {
-		return operateurService.addOperateur(op);
+	public Operateur addOperateur(@RequestBody OperateurDTO op) {
+		Operateur persistentOperateur = modelMapper.map(op,  Operateur.class);
+		return  operateurService.addOperateur( persistentOperateur);
 	}
 
 
@@ -48,8 +54,9 @@ public class OperateurController {
 
 	@PutMapping("/modify-operateur")
 	@ResponseBody
-	public Operateur modifyOperateur(@RequestBody Operateur operateur) {
-		return operateurService.updateOperateur(operateur);
+	public Operateur modifyOperateur(@RequestBody OperateurDTO operateur) {
+		Operateur persistentOperateur = modelMapper.map(operateur,  Operateur.class);
+		return operateurService.updateOperateur(persistentOperateur);
 	}
 
 	

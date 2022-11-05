@@ -1,9 +1,11 @@
 package tn.esprit.rh.achat.controllers;
 
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.rh.achat.dto.ProduitDTO;
 import tn.esprit.rh.achat.entities.Produit;
 import tn.esprit.rh.achat.services.IProduitService;
 
@@ -19,6 +21,9 @@ public class ProduitRestController {
 
 	@Autowired
 	IProduitService produitService;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 
 	@GetMapping("/retrieve-all-produits")
@@ -38,9 +43,11 @@ public class ProduitRestController {
 
 	@PostMapping("/add-produit")
 	@ResponseBody
-	public Produit addProduit(@RequestBody Produit p) {
-		return produitService.addProduit(p);
+	public Produit addProduit(@RequestBody ProduitDTO p) {
+		Produit persistentProduit = modelMapper.map(p,  Produit.class);
+		return  produitService.addProduit( persistentProduit);
 	}
+
 
 
 	@DeleteMapping("/remove-produit/{produit-id}")
@@ -52,8 +59,9 @@ public class ProduitRestController {
 
 	@PutMapping("/modify-produit")
 	@ResponseBody
-	public Produit modifyProduit(@RequestBody Produit p) {
-		return produitService.updateProduit(p);
+	public Produit modifyProduit(@RequestBody ProduitDTO p) {
+		Produit persistentProduit = modelMapper.map(p,  Produit.class);
+		return produitService.updateProduit(persistentProduit);
 	}
 
 	/*

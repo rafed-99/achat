@@ -1,8 +1,10 @@
 package tn.esprit.rh.achat.controllers;
 
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.rh.achat.dto.FournisseurDTO;
 import tn.esprit.rh.achat.entities.Fournisseur;
 import tn.esprit.rh.achat.services.IFournisseurService;
 
@@ -16,6 +18,9 @@ public class FournisseurRestController {
 
 	@Autowired
 	IFournisseurService fournisseurService;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@GetMapping("/retrieve-all-fournisseurs")
 	@ResponseBody
@@ -31,8 +36,9 @@ public class FournisseurRestController {
 
 	@PostMapping("/add-fournisseur")
 	@ResponseBody
-	public Fournisseur addFournisseur(@RequestBody Fournisseur f) {
-		return fournisseurService.addFournisseur(f);
+	public Fournisseur addFournisseur(@RequestBody FournisseurDTO f) {
+		Fournisseur persistentF = modelMapper.map(f,  Fournisseur.class);
+		return fournisseurService.addFournisseur(persistentF);
 	}
 
 	@DeleteMapping("/remove-fournisseur/{fournisseur-id}")
@@ -43,8 +49,9 @@ public class FournisseurRestController {
 
 	@PutMapping("/modify-fournisseur")
 	@ResponseBody
-	public Fournisseur modifyFournisseur(@RequestBody Fournisseur fournisseur) {
-		return fournisseurService.updateFournisseur(fournisseur);
+	public Fournisseur modifyFournisseur(@RequestBody FournisseurDTO f) {
+		Fournisseur persistentF = modelMapper.map(f,  Fournisseur.class);
+		return fournisseurService.updateFournisseur(persistentF);
 	}
 
 		@PutMapping(value = "/assignSecteurActiviteToFournisseur/{idSecteurActivite}/{idFournisseur}")
