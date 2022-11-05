@@ -47,5 +47,10 @@ environment {
                                     sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=41120725'
                                 }
         }
+        stage("NEXUS"){
+                       steps{
+                               sh 'mvn  deploy'
+                       }
+        }
     }
 }
