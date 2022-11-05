@@ -13,7 +13,7 @@ public class CategorieProduitServiceImpl implements ICategorieProduitService {
 	
 	@Autowired
 	CategorieProduitRepository categorieProduitRepository;
-	
+
 	@Override
 	public List<CategorieProduit> retrieveAllCategorieProduits() {
 		return categorieProduitRepository.findAll();
@@ -21,8 +21,7 @@ public class CategorieProduitServiceImpl implements ICategorieProduitService {
 
 	@Override
 	public CategorieProduit addCategorieProduit(CategorieProduit cp) {
-		categorieProduitRepository.save(cp);
-		return cp;
+		return  categorieProduitRepository.save(cp);
 	}
 
 	@Override

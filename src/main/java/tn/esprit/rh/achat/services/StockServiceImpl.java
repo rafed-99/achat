@@ -22,7 +22,7 @@ public class StockServiceImpl implements IStockService {
 	public List<Stock> retrieveAllStocks() {
 		// récuperer la date à l'instant t1
 		log.info("In method retrieveAllStocks");
-		List<Stock> stocks = (List<Stock>) stockRepository.findAll();
+		List<Stock> stocks =  stockRepository.findAll();
 		for (Stock stock : stocks) {
 			log.info(" Stock : " + stock);
 		}
@@ -70,18 +70,17 @@ public class StockServiceImpl implements IStockService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date now = new Date();
 		String msgDate = sdf.format(now);
-		String finalMessage = "";
+		StringBuilder finalMessage = new StringBuilder();
 		String newLine = System.getProperty("line.separator");
-		List<Stock> stocksEnRouge = (List<Stock>) stockRepository.retrieveStatusStock();
-		for (int i = 0; i < stocksEnRouge.size(); i++) {
-			finalMessage = newLine + finalMessage + msgDate + newLine + ": le stock "
-					+ stocksEnRouge.get(i).getLibelleStock() + " a une quantité de " + stocksEnRouge.get(i).getQte()
-					+ " inférieur à la quantité minimale a ne pas dépasser de " + stocksEnRouge.get(i).getQteMin()
-					+ newLine;
-
+		List<Stock> stocksEnRouge = stockRepository.retrieveStatusStock();
+		for (Stock stock : stocksEnRouge) {
+			finalMessage = new StringBuilder(newLine + finalMessage + msgDate + newLine + ": le stock "
+					+ stock.getLibelleStock() + " a une quantité de " + stock.getQte()
+					+ " inférieur à la quantité minimale a ne pas dépasser de " + stock.getQteMin()
+					+ newLine);
 		}
-		log.info(finalMessage);
-		return finalMessage;
+		log.info(finalMessage.toString());
+		return finalMessage.toString();
 	}
 
 }
