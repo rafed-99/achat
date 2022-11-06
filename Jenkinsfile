@@ -47,11 +47,11 @@ environment {
                                     sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=41120725'
                                 }
         }
-        /*stage("NEXUS"){
+        stage("NEXUS"){
                        steps{
-                               sh'mvn deploy'
+                               sh 'mvn deploy:deploy-file -DgroupId=tn.esprit.rh -DartifactId=achat -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://192.168.1.147:8081/repository/maven-releases -Dfile=target/devopsproject.jar'
                                }
-        }*/
+        }
         stage('Building our image') {
                                 steps {
                                     script {
