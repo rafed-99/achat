@@ -49,13 +49,8 @@ environment {
         }
         stage("NEXUS"){
                        steps{
-                               nexusArtifactUploader artifacts: [
-                               [
-                               artifactId: 'achat', classifier: '', file: 'target/achat-1.0.jar', type: 'jar'
-                               ]
-                               ],
-                               credentialsId: 'nexus', groupId: 'tn.esprit.rh', nexusUrl: 'http://192.168.1.144/', nexusVersion: 'nexus3', protocol: 'http', repository: 'http://192.168.1.144:8081/repository/achatintegration/', version: '1.0'
-                       }
+                               sh'mvn deploy'
+                               }
         }
         stage('Building our image') {
                                 steps {
