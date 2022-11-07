@@ -34,5 +34,17 @@ public class Operateur implements Serializable{
 	@OneToMany
 	@JsonIgnore
 	private Set<Facture> factures;
-	
+
+	public Operateur(String nom, String prenom, String password) {
+		this.nom=nom;
+		this.prenom=prenom;
+		this.password=password;
+	}
+
+	public Operateur(Long idOperateur, String nom, String prenom, String password) {
+		this.idOperateur = idOperateur;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.password = password;
+	}
 }

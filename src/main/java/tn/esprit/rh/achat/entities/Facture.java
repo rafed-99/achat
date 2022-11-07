@@ -37,12 +37,11 @@ public class Facture implements Serializable {
 	private Boolean archivee;
 	@OneToMany(mappedBy = "facture")
 	private Set<DetailFacture> detailsFacture;
-    @ManyToOne
-    @JsonIgnore
-    private Fournisseur fournisseur;
-    @OneToMany(mappedBy="facture")
-    @JsonIgnore
-    private Set<Reglement> reglements;
+	@ManyToOne
+	@JsonIgnore
+	private Fournisseur fournisseur;
+	@OneToMany(mappedBy = "facture")
+	@JsonIgnore
+	private Set<Reglement> reglements;
 
-	
 }

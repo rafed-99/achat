@@ -47,7 +47,26 @@ public class Produit implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	private CategorieProduit categorieProduit;
-	
+
+	public Produit(String codeProduit, String libelleProduit, float prix, Date dateCreation, Date dateDerniereModification) {
+		this.codeProduit = codeProduit;
+		this.libelleProduit = libelleProduit;
+		this.prix = prix;
+		this.dateCreation = dateCreation;
+		this.dateDerniereModification = dateDerniereModification;
+	}
+
+	@Override
+	public String toString() {
+		return "Produit{" +
+				"idProduit=" + idProduit +
+				", codeProduit='" + codeProduit + '\'' +
+				", libelleProduit='" + libelleProduit + '\'' +
+				", prix=" + prix +
+				", dateCreation=" + dateCreation +
+				", dateDerniereModification=" + dateDerniereModification +
+				'}';
+	}
 
 
 	
