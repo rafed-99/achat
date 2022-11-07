@@ -17,14 +17,15 @@ import java.util.Optional;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.rh.achat.entities.Operateur;
 import tn.esprit.rh.achat.repositories.OperateurRepository;
 import tn.esprit.rh.achat.services.OperateurServiceImpl;
 
-
+@SpringBootTest(classes =OperateurServiceImplMockTest.class)
 @ExtendWith(MockitoExtension.class)
 
- class OperateurServiceImplTestMock {
+class OperateurServiceImplMockTest {
     @Mock
     OperateurRepository operateurRepo;
     @InjectMocks

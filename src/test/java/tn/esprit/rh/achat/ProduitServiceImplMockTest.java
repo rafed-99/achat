@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.rh.achat.entities.Produit;
 import tn.esprit.rh.achat.repositories.ProduitRepository;
 import tn.esprit.rh.achat.services.IProduitService;
@@ -16,10 +17,10 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
 
 
-
+@SpringBootTest(classes =ProduitServiceImplMockTest.class)
 @ExtendWith(MockitoExtension.class)
 
- class ProduitServiceImplTestMock {
+class ProduitServiceImplMockTest {
     @Mock
     ProduitRepository produitRepository;
 
